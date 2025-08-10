@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# models need to be downloaded seperate ig
+.public/models/*
