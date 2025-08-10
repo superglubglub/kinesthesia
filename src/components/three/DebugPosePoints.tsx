@@ -1,14 +1,7 @@
 import React, { useMemo } from "react";
 import type { PoseResult } from "../../types/pose";
 
-/**
- * Debug points to visualize landmarks in 3D quickly.
- * Mapping:
- *  - x: (lm.x - 0.5) * 2
- *  - y: (0.5 - lm.y) * 2
- *  - z: -(lm.z ?? 0)   (flip so forward is -Z)
- */
-const DebugPosePoints: React.FC<{ pose: PoseResult | null }> = ({ pose }) => {
+const DebugPosePoints: React.FC<{ pose: PoseResult | null; wireframe?: boolean }> = ({ pose, wireframe }) => {
     const points = useMemo(() => {
         if (!pose?.landmarks) return [];
         return pose.landmarks.map((lm) => {
@@ -25,7 +18,7 @@ const DebugPosePoints: React.FC<{ pose: PoseResult | null }> = ({ pose }) => {
             {points.map((p, i) => (
                 <mesh key={i} position={p}>
                     <sphereGeometry args={[0.02, 12, 12]} />
-                    <meshStandardMaterial />
+                    <meshStandardMaterial wireframe={!!wireframe} />
                 </mesh>
             ))}
         </group>

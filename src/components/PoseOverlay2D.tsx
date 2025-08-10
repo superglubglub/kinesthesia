@@ -1,4 +1,3 @@
-// src/components/PoseOverlay2D.tsx
 import React, { useEffect, useRef } from "react";
 import type { PoseResult } from "../types/pose";
 import { DrawingUtils, PoseLandmarker } from "@mediapipe/tasks-vision";
@@ -6,9 +5,10 @@ import { DrawingUtils, PoseLandmarker } from "@mediapipe/tasks-vision";
 type Props = {
     videoRef: React.RefObject<HTMLVideoElement>;
     pose: PoseResult | null;
+    mirrored?: boolean;
 };
 
-const PoseOverlay2D: React.FC<Props> = ({ videoRef, pose }) => {
+const PoseOverlay2D: React.FC<Props> = ({ videoRef, pose, mirrored }) => {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
     useEffect(() => {
@@ -35,12 +35,7 @@ const PoseOverlay2D: React.FC<Props> = ({ videoRef, pose }) => {
 
             const lms = pose?.landmarks ?? [];
             if (lms.length && drawer) {
-                // Built-in connections + landmarks via DrawingUtils
-                drawer.drawConnectors(
-                    lms as any, // NormalizedLandmark[]
-                    PoseLandmarker.POSE_CONNECTIONS,
-                    { lineWidth: 3 }
-                );
+                drawer.drawConnectors(lms as any, PoseLandmarker.POSE_CONNECTIONS, { lineWidth: 3 });
                 drawer.drawLandmarks(lms as any, { lineWidth: 0, radius: 4 });
             } else {
                 ctx.fillStyle = "rgba(255,255,255,0.7)";
@@ -55,7 +50,13 @@ const PoseOverlay2D: React.FC<Props> = ({ videoRef, pose }) => {
         return () => cancelAnimationFrame(raf);
     }, [videoRef, pose]);
 
-    return <canvas ref={canvasRef} className="pointer-events-none absolute inset-0" />;
+    return (
+        <canvas
+            ref={canvasRef}
+            className="pointer-events-none absolute inset-0"
+            style={mirrored ? { transform: "scaleX(-1)" } : undefined}
+        />
+    );
 };
 
 export default PoseOverlay2D;

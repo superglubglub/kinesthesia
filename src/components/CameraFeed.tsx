@@ -5,12 +5,19 @@ type Props = {
     ready: boolean;
     onStart: () => void;
     onStop: () => void;
+    mirrored?: boolean;
 };
 
-const CameraFeed: React.FC<Props> = ({ videoRef, ready, onStart, onStop }) => {
+const CameraFeed: React.FC<Props> = ({ videoRef, ready, onStart, onStop, mirrored }) => {
     return (
-        <div className="relative w-full aspect-video bg-black/80 rounded-2xl overflow-hidden ring-1 ring-white/10">
-            <video ref={videoRef} playsInline muted className="absolute inset-0 h-full w-full object-cover" />
+        <div className="relative w-full h-full">
+            <video
+                ref={videoRef}
+                playsInline
+                muted
+                className="absolute inset-0 h-full w-full object-cover"
+                style={mirrored ? { transform: "scaleX(-1)" } : undefined}
+            />
             {!ready ? (
                 <div className="absolute inset-0 grid place-items-center">
                     <button onClick={onStart} className="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-white text-sm">
