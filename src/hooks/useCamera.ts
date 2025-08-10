@@ -1,7 +1,9 @@
 import { useCallback, useRef, useState } from "react";
 
 export function useCamera() {
-    const videoRef = useRef<HTMLVideoElement | null>(null);
+    // Before: const videoRef = useRef<HTMLVideoElement | null>(null);
+    const videoRef = useRef<HTMLVideoElement>(null!); // non-nullable type, null at runtime until mount
+
     const [ready, setReady] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
