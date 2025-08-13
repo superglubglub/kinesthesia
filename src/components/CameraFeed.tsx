@@ -8,7 +8,7 @@ type Props = {
     mirrored?: boolean;
 };
 
-const CameraFeed: React.FC<Props> = ({ videoRef, ready, onStart, onStop, mirrored }) => {
+const CameraFeed: React.FC<Props> = ({ videoRef, ready, onStart, onStop }) => {
     return (
         <div className="relative w-full h-full">
             <video
@@ -16,7 +16,6 @@ const CameraFeed: React.FC<Props> = ({ videoRef, ready, onStart, onStop, mirrore
                 playsInline
                 muted
                 className="absolute inset-0 h-full w-full object-cover"
-                style={mirrored ? { transform: "scaleX(-1)" } : undefined}
             />
             {!ready ? (
                 <div className="absolute inset-0 grid place-items-center">

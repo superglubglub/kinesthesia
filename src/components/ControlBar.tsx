@@ -49,14 +49,14 @@ const ControlBar: React.FC<Props> = ({
             <div className="ml-2 flex rounded-lg overflow-hidden ring-1 ring-white/15">
                 <button
                     onClick={() => onModelChange("lite")}
-                    className={`px-3 py-1.5 text-xs ${model === "lite" ? "bg-white/80 text-black" : "bg-white/10 text-white/80 hover:bg-white/20"}`}
+                    className={`px-3 py-1.5 text-xs ${model === "lite" ? "bg-white/80 text-blue-600" : "bg-white/10 text-white/80 hover:bg-white/20"}`}
                     title="Faster, ideal for mobile"
                 >
                     Lite
                 </button>
                 <button
                     onClick={() => onModelChange("full")}
-                    className={`px-3 py-1.5 text-xs ${model === "full" ? "bg-white/80 text-black" : "bg-white/10 text-white/80 hover:bg-white/20"}`}
+                    className={`px-3 py-1.5 text-xs ${model === "full" ? "bg-white/80 text-blue-600" : "bg-white/10 text-white/80 hover:bg-white/20"}`}
                     title="Higher accuracy, slower"
                 >
                     Full
